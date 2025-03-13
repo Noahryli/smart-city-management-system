@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Feedback</h2>
+    <form id="feedbackForm">
+        <textarea id="feedbackContent" placeholder="Your feedback" required></textarea>
+        <button type="submit">Submit Feedback</button>
+    </form>
+    <script>
+        document.getElementById('feedbackForm').onsubmit = async function (event) {
+            event.preventDefault();
+            const user_id = 1; // Replace with the logged-in user's ID
+            const content = document.getElementById('feedbackContent').value;
+            const response = await fetch('http://localhost:8000/feedback/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id, content })
+            });
+            const result = await response.json();
+            alert("Feedback submitted!");
+        };
+    </script>
+</body>
+</html>
